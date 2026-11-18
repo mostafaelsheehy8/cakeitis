@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cakeitis
 
-## Getting Started
+Web app for Cakeitis, a tiramisu cloud kitchen: menu, cart, cash-on-delivery checkout, event booking requests and a small admin panel.
 
-First, run the development server:
+**Stack:** Next.js 15 (App Router, TypeScript) · Tailwind CSS v4 · MongoDB + Mongoose
+
+## Run locally
+
+Requirements: Node 20+ and MongoDB running locally (or a MongoDB Atlas URI).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # then edit the values
+npm run seed                 # loads the 6 menu flavours
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Variable | Purpose |
+| --- | --- |
+| `MONGODB_URI` | e.g. `mongodb://127.0.0.1:27017/cakeitis` |
+| `ADMIN_PASSWORD` | Password for `/admin` |
+| `ADMIN_SESSION_SECRET` | Long random string used to sign the admin cookie |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`.env.local` is git-ignored. Never commit it.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Pages
 
-## Learn More
+| Route | What it does |
+| --- | --- |
+| `/` | Landing page |
+| `/menu` | Flavours with Cup / Small tray / Large tray sizes |
+| `/cart`, `/checkout` | Cart (saved in localStorage) and COD checkout |
+| `/order/[id]` | Order confirmation |
+| `/events` | Event booking request form |
+| `/admin` | Orders and bookings with status updates (password protected) |
 
-To learn more about Next.js, take a look at the following resources:
+## API
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `GET /api/products`
+- `POST /api/orders`: the server looks prices up in the DB; client prices are ignored
+- `POST /api/events`
+- `POST /api/admin/login`, `POST /api/admin/logout`
+- `PATCH /api/admin/orders/:id`, `PATCH /api/admin/events/:id` with body `{ "status": "..." }`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`/admin/*` and `/api/admin/*` are protected by `src/middleware.ts` (HMAC-signed, httpOnly cookie, 12h).
 
-## Deploy on Vercel
+## Editing the menu
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Change the list in `scripts/seed.ts` and run `npm run seed` again. It upserts by `slug`, so existing products keep their ids.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Later phases
+
+Online payment (Paymob / InstaPay), customer accounts, notifications (WhatsApp/email), real product photos, Arabic/RTL, deployment.
