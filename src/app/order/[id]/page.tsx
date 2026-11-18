@@ -17,14 +17,14 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
   return (
     <div className="mx-auto max-w-2xl px-4 py-16 text-center">
       <p className="text-5xl">🎉</p>
-      <h1 className="mt-4 font-serif text-4xl text-cocoa">Thank you, {order.customer.name.split(" ")[0]}!</h1>
-      <p className="mt-3 text-mocha">
-        Your order <strong className="text-cocoa">{order.code}</strong> has been received. We&apos;ll call you on{" "}
+      <h1 className="mt-4 font-serif text-4xl text-rose">Thank you, {order.customer.name.split(" ")[0]}!</h1>
+      <p className="mt-3 text-muted">
+        Your order <strong className="text-rose">{order.code}</strong> has been received. We&apos;ll call you on{" "}
         {order.customer.phone} to confirm.
       </p>
       <div className="mt-8 rounded-3xl bg-white p-6 text-left ring-1 ring-cream">
-        <p className="mb-3 text-sm text-mocha">
-          Status: <span className="rounded-full bg-cream px-3 py-1 font-semibold text-cocoa">{statusLabel(order.status)}</span>
+        <p className="mb-3 text-sm text-muted">
+          Status: <span className="rounded-full bg-cream px-3 py-1 font-semibold text-rose">{statusLabel(order.status)}</span>
         </p>
         <ul className="space-y-1 text-sm">
           {order.items.map((i, idx) => (

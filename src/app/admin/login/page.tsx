@@ -30,7 +30,9 @@ export default function AdminLogin() {
   return (
     <div className="flex min-h-[70vh] items-center justify-center px-4">
       <form onSubmit={onSubmit} className="w-full max-w-sm space-y-4 rounded-3xl bg-white p-8 ring-1 ring-cream">
-        <h1 className="font-serif text-3xl text-cocoa">Cakeitis admin</h1>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo.png" alt="Cakeitis" className="mx-auto h-20 w-auto" />
+        <h1 className="text-center font-serif text-2xl text-rose">Admin</h1>
         <div>
           <label className="label" htmlFor="password">Password</label>
           <input id="password" name="password" type="password" required className="input" autoFocus />

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { TiramisuArt } from "@/components/TiramisuArt";
 import { getMenu } from "@/lib/products";
@@ -13,34 +14,36 @@ export default async function Home() {
     <>
       <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
         <div>
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-caramel">Tiramisu cloud kitchen</p>
-          <h1 className="font-serif text-5xl leading-tight text-cocoa md:text-6xl">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-blush">Tiramisu cloud kitchen</p>
+          <h1 className="font-serif text-5xl leading-tight text-rose md:text-6xl">
             Layers of happiness, delivered.
           </h1>
-          <p className="mt-5 max-w-md text-lg text-mocha">
-            Cakeitis makes small-batch tiramisu by hand every day. Order a cup for tonight, a tray for the family, or
-            let us cater your next event.
+          <p className="mt-5 max-w-md text-lg text-muted">
+            Cakeitis makes small-batch tiramisu by hand every day. Order a small one for tonight, a large one for the
+            family, or let us cater your next event.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/menu" className="btn">Order now</Link>
             <Link href="/events" className="btn btn-outline">Book us for an event</Link>
           </div>
         </div>
-        <TiramisuArt className="aspect-[4/3] w-full" />
+        <div className="relative mx-auto flex aspect-square w-full max-w-md items-center justify-center rounded-full bg-white shadow-[0_20px_60px_-20px_rgb(150_74_81_/_0.35)] ring-1 ring-cream">
+          <Image src="/logo.png" alt="Cakeitis" width={517} height={341} priority className="w-3/4 h-auto" />
+        </div>
       </section>
 
       <section className="bg-cream/60 py-16">
         <div className="mx-auto max-w-6xl px-4">
           <div className="mb-8 flex items-end justify-between">
-            <h2 className="font-serif text-3xl text-cocoa">Customer favourites</h2>
-            <Link href="/menu" className="text-sm font-semibold text-caramel hover:underline">Full menu →</Link>
+            <h2 className="font-serif text-3xl text-rose">Customer favourites</h2>
+            <Link href="/menu" className="text-sm font-semibold text-blush hover:underline">Full menu →</Link>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((p) => (
               <Link key={p.id} href="/menu" className="group rounded-3xl bg-mascarpone p-4 shadow-sm transition hover:shadow-md">
                 <TiramisuArt accent={p.accent} className="aspect-[4/3]" />
-                <h3 className="mt-4 font-serif text-xl text-cocoa group-hover:text-caramel">{p.name}</h3>
-                <p className="text-sm text-mocha">From {formatEGP(Math.min(...p.sizes.map((s) => s.price)))}</p>
+                <h3 className="mt-4 font-serif text-xl text-rose group-hover:text-blush">{p.name}</h3>
+                <p className="text-sm text-muted">From {formatEGP(Math.min(...p.sizes.map((s) => s.price)))}</p>
               </Link>
             ))}
           </div>
@@ -54,8 +57,8 @@ export default async function Home() {
           ["Events & catering", "Birthdays, weddings, office treats: dessert tables of any size."],
         ].map(([t, d]) => (
           <div key={t} className="rounded-3xl border border-cream p-6">
-            <h3 className="font-serif text-xl text-cocoa">{t}</h3>
-            <p className="mt-2 text-mocha">{d}</p>
+            <h3 className="font-serif text-xl text-rose">{t}</h3>
+            <p className="mt-2 text-muted">{d}</p>
           </div>
         ))}
       </section>

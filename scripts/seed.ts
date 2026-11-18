@@ -2,10 +2,10 @@
 import mongoose from "mongoose";
 import { Product } from "../src/models/Product";
 
-const sizes = (cup: number, small: number, large: number) => [
-  { label: "Cup", serves: "1 person", price: cup },
-  { label: "Small tray", serves: "4–6 people", price: small },
-  { label: "Large tray", serves: "10–12 people", price: large },
+// Same prices for every flavour. Add a Medium size here once its price is decided.
+const SIZES = [
+  { label: "Small", serves: "", price: 110 },
+  { label: "Large", serves: "", price: 470 },
 ];
 
 const products = [
@@ -14,42 +14,42 @@ const products = [
     slug: "classic",
     description: "Espresso-soaked ladyfingers, airy mascarpone cream and a deep cocoa dusting.",
     accent: "#6b4226",
-    sizes: sizes(95, 420, 780),
+    sizes: SIZES,
   },
   {
     name: "Lotus Biscoff",
     slug: "lotus",
     description: "Caramelised Lotus biscuits, Biscoff spread swirl and a crunchy crumble top.",
     accent: "#c8894d",
-    sizes: sizes(110, 480, 890),
+    sizes: SIZES,
   },
   {
     name: "Pistachio",
     slug: "pistachio",
     description: "Silky pistachio cream layered with roasted pistachios and white chocolate.",
     accent: "#8a9a5b",
-    sizes: sizes(130, 560, 1040),
+    sizes: SIZES,
   },
   {
     name: "Nutella Hazelnut",
     slug: "nutella",
     description: "Hazelnut mascarpone, Nutella ribbons and toasted hazelnut crunch.",
     accent: "#4a2c1d",
-    sizes: sizes(115, 500, 920),
+    sizes: SIZES,
   },
   {
     name: "Strawberry",
     slug: "strawberry",
     description: "A summery twist: fresh strawberries, vanilla cream and strawberry syrup.",
     accent: "#c4536a",
-    sizes: sizes(105, 460, 850),
+    sizes: SIZES,
   },
   {
     name: "Red Velvet",
     slug: "red-velvet",
     description: "Red velvet sponge, cream-cheese mascarpone and white chocolate shavings.",
     accent: "#9b2335",
-    sizes: sizes(115, 500, 920),
+    sizes: SIZES,
   },
 ];
 

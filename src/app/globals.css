@@ -2,11 +2,12 @@
 
 @theme {
   --color-espresso: #2a1810;
-  --color-cocoa: #4a2c1d;
-  --color-mocha: #7a5238;
-  --color-caramel: #c8894d;
-  --color-cream: #f6ecdd;
-  --color-mascarpone: #fffaf2;
+  --color-rose: #964a51; /* logo colour */
+  --color-rose-dark: #6f333a;
+  --color-muted: #6e5452;
+  --color-blush: #c06a77;
+  --color-cream: #f7ece8;
+  --color-mascarpone: #fffaf8;
   --color-sponge: #e9c98f;
   --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-sans: ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
@@ -21,14 +22,14 @@ body {
 .input {
   width: 100%;
   border-radius: 0.75rem;
-  border: 1px solid #e3d3bd;
+  border: 1px solid #ead9d5;
   background: white;
   padding: 0.65rem 0.9rem;
   outline: none;
 }
 .input:focus {
-  border-color: var(--color-caramel);
-  box-shadow: 0 0 0 3px rgb(200 137 77 / 0.2);
+  border-color: var(--color-blush);
+  box-shadow: 0 0 0 3px rgb(150 74 81 / 0.2);
 }
 .btn {
   display: inline-flex;
@@ -36,14 +37,14 @@ body {
   justify-content: center;
   gap: 0.5rem;
   border-radius: 999px;
-  background: var(--color-cocoa);
+  background: var(--color-rose);
   color: var(--color-mascarpone);
   padding: 0.7rem 1.4rem;
   font-weight: 600;
   transition: background 0.15s;
 }
 .btn:hover {
-  background: var(--color-espresso);
+  background: var(--color-rose-dark);
 }
 .btn:disabled {
   opacity: 0.5;
@@ -51,8 +52,8 @@ body {
 }
 .btn-outline {
   background: transparent;
-  color: var(--color-cocoa);
-  border: 1.5px solid var(--color-cocoa);
+  color: var(--color-rose);
+  border: 1.5px solid var(--color-rose);
 }
 .btn-outline:hover {
   background: var(--color-cream);
@@ -62,5 +63,5 @@ body {
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 0.35rem;
-  color: var(--color-cocoa);
+  color: var(--color-rose);
 }

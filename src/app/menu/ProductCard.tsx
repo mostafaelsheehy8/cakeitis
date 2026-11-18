@@ -23,10 +23,15 @@ export function ProductCard({ product }: { product: MenuProduct }) {
   return (
     <div className="flex flex-col rounded-3xl bg-white p-4 shadow-sm ring-1 ring-cream">
       <TiramisuArt accent={product.accent} className="aspect-[4/3]" />
-      <h2 className="mt-4 font-serif text-2xl text-cocoa">{product.name}</h2>
-      <p className="mt-1 flex-1 text-sm text-mocha">{product.description}</p>
+      <h2 className="mt-4 font-serif text-2xl text-rose">{product.name}</h2>
+      <p className="mt-1 flex-1 text-sm text-muted">{product.description}</p>
 
-      <div className="mt-4 grid grid-cols-3 gap-2" role="radiogroup" aria-label="Size">
+      <div
+        className="mt-4 grid gap-2"
+        style={{ gridTemplateColumns: `repeat(${product.sizes.length}, minmax(0, 1fr))` }}
+        role="radiogroup"
+        aria-label="Size"
+      >
         {product.sizes.map((s, i) => (
           <button
             key={s.label}
@@ -35,17 +40,17 @@ export function ProductCard({ product }: { product: MenuProduct }) {
             aria-checked={i === sizeIdx}
             onClick={() => setSizeIdx(i)}
             className={`rounded-xl border px-2 py-2 text-left text-xs transition ${
-              i === sizeIdx ? "border-cocoa bg-cream" : "border-cream hover:border-sponge"
+              i === sizeIdx ? "border-rose bg-cream" : "border-cream hover:border-sponge"
             }`}
           >
-            <span className="block font-semibold text-cocoa">{s.label}</span>
-            <span className="block text-mocha">{s.serves}</span>
+            <span className="block font-semibold text-rose">{s.label}</span>
+            {s.serves && <span className="block text-muted">{s.serves}</span>}
           </button>
         ))}
       </div>
 
       <div className="mt-4 flex items-center justify-between gap-3">
-        <span className="text-lg font-bold text-cocoa">{formatEGP(size.price)}</span>
+        <span className="text-lg font-bold text-rose">{formatEGP(size.price)}</span>
         <div className="flex items-center gap-2">
           <div className="flex items-center rounded-full border border-cream">
             <button type="button" className="px-3 py-1.5" onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Decrease">−</button>

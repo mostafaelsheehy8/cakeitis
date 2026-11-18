@@ -23,37 +23,37 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
   ]);
 
   const tabCls = (t: string) =>
-    `rounded-full px-4 py-2 text-sm font-semibold ${tab === t ? "bg-cocoa text-mascarpone" : "bg-cream text-cocoa"}`;
+    `rounded-full px-4 py-2 text-sm font-semibold ${tab === t ? "bg-rose text-mascarpone" : "bg-cream text-rose"}`;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="font-serif text-3xl text-cocoa">Cakeitis admin</h1>
+        <h1 className="font-serif text-3xl text-rose">Cakeitis admin</h1>
         <div className="flex items-center gap-3">
-          <Link href="/" className="text-sm text-mocha hover:underline">View site</Link>
+          <Link href="/" className="text-sm text-muted hover:underline">View site</Link>
           <LogoutButton />
         </div>
       </div>
 
       <div className="mt-6 flex gap-2">
         <Link href="/admin?tab=orders" className={tabCls("orders")}>
-          Orders {pendingOrders > 0 && <span className="ml-1 rounded-full bg-caramel px-2 text-xs text-espresso">{pendingOrders}</span>}
+          Orders {pendingOrders > 0 && <span className="ml-1 rounded-full bg-blush px-2 text-xs text-espresso">{pendingOrders}</span>}
         </Link>
         <Link href="/admin?tab=events" className={tabCls("events")}>
-          Event bookings {newBookings > 0 && <span className="ml-1 rounded-full bg-caramel px-2 text-xs text-espresso">{newBookings}</span>}
+          Event bookings {newBookings > 0 && <span className="ml-1 rounded-full bg-blush px-2 text-xs text-espresso">{newBookings}</span>}
         </Link>
       </div>
 
       {tab === "orders" ? (
         <div className="mt-6 space-y-4">
-          {orders.length === 0 && <p className="rounded-2xl bg-cream p-6 text-mocha">No orders yet.</p>}
+          {orders.length === 0 && <p className="rounded-2xl bg-cream p-6 text-muted">No orders yet.</p>}
           {orders.map((o) => (
             <div key={String(o._id)} className="rounded-2xl bg-white p-5 ring-1 ring-cream">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="font-semibold text-cocoa">{o.code} · {o.customer.name}</p>
-                  <p className="text-sm text-mocha">{dt(o.createdAt)} · <a href={`tel:${o.customer.phone}`} className="underline">{o.customer.phone}</a></p>
-                  <p className="text-sm text-mocha">{[o.customer.area, o.customer.address].filter(Boolean).join(" — ")}</p>
+                  <p className="font-semibold text-rose">{o.code} · {o.customer.name}</p>
+                  <p className="text-sm text-muted">{dt(o.createdAt)} · <a href={`tel:${o.customer.phone}`} className="underline">{o.customer.phone}</a></p>
+                  <p className="text-sm text-muted">{[o.customer.area, o.customer.address].filter(Boolean).join(" — ")}</p>
                 </div>
                 <StatusSelect id={String(o._id)} kind="orders" value={o.status} options={ORDER_STATUSES} />
               </div>
@@ -63,23 +63,23 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                 ))}
               </ul>
               {o.notes && <p className="mt-2 rounded-lg bg-cream/70 p-2 text-sm">📝 {o.notes}</p>}
-              <p className="mt-2 text-sm font-bold text-cocoa">Total: {formatEGP(o.total)} (COD)</p>
+              <p className="mt-2 text-sm font-bold text-rose">Total: {formatEGP(o.total)} (COD)</p>
             </div>
           ))}
         </div>
       ) : (
         <div className="mt-6 space-y-4">
-          {bookings.length === 0 && <p className="rounded-2xl bg-cream p-6 text-mocha">No booking requests yet.</p>}
+          {bookings.length === 0 && <p className="rounded-2xl bg-cream p-6 text-muted">No booking requests yet.</p>}
           {bookings.map((b) => (
             <div key={String(b._id)} className="rounded-2xl bg-white p-5 ring-1 ring-cream">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="font-semibold text-cocoa">{b.eventType || "Event"} · {day(b.date)}</p>
-                  <p className="text-sm text-mocha">
+                  <p className="font-semibold text-rose">{b.eventType || "Event"} · {day(b.date)}</p>
+                  <p className="text-sm text-muted">
                     {b.name} · <a href={`tel:${b.phone}`} className="underline">{b.phone}</a>
                     {b.email && <> · <a href={`mailto:${b.email}`} className="underline">{b.email}</a></>}
                   </p>
-                  <p className="text-sm text-mocha">
+                  <p className="text-sm text-muted">
                     📍 {b.location} · 👥 {b.guests} guests
                     {b.estimatedTotal != null ? (
                       <> · 💰 Est. {formatEGP(b.estimatedTotal)}</>
@@ -91,7 +91,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                 <StatusSelect id={String(b._id)} kind="events" value={b.status} options={EVENT_STATUSES} />
               </div>
               {b.notes && <p className="mt-2 rounded-lg bg-cream/70 p-2 text-sm">📝 {b.notes}</p>}
-              <p className="mt-2 text-xs text-mocha">Requested {dt(b.createdAt)}</p>
+              <p className="mt-2 text-xs text-muted">Requested {dt(b.createdAt)}</p>
             </div>
           ))}
         </div>

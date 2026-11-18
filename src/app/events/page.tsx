@@ -37,12 +37,12 @@ export default function EventsPage() {
     return (
       <div className="mx-auto max-w-xl px-4 py-20 text-center">
         <p className="text-5xl">🍰</p>
-        <h1 className="mt-4 font-serif text-4xl text-cocoa">Request received!</h1>
-        <p className="mt-3 text-mocha">
+        <h1 className="mt-4 font-serif text-4xl text-rose">Request received!</h1>
+        <p className="mt-3 text-muted">
           Thanks for thinking of Cakeitis. We&apos;ll call you within 24 hours to talk through flavours and confirm the price.
         </p>
         {sentEstimate > 0 && (
-          <p className="mt-4 inline-block rounded-full bg-cream px-4 py-2 font-semibold text-cocoa">
+          <p className="mt-4 inline-block rounded-full bg-cream px-4 py-2 font-semibold text-rose">
             Estimated price: {formatEGP(sentEstimate)}
           </p>
         )}
@@ -52,13 +52,13 @@ export default function EventsPage() {
   return (
     <div className="mx-auto grid max-w-5xl gap-10 px-4 py-12 md:grid-cols-[1fr_1.3fr]">
       <div>
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-caramel">Events & catering</p>
-        <h1 className="mt-2 font-serif text-4xl text-cocoa">Let us bring the tiramisu.</h1>
-        <p className="mt-4 text-mocha">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blush">Events & catering</p>
+        <h1 className="mt-2 font-serif text-4xl text-rose">Let us bring the tiramisu.</h1>
+        <p className="mt-4 text-muted">
           Birthdays, engagements, weddings, office days: tell us about your event and we&apos;ll put together a dessert
           table that fits your guests and budget.
         </p>
-        <ul className="mt-6 space-y-2 text-sm text-mocha">
+        <ul className="mt-6 space-y-2 text-sm text-muted">
           <li>✓ Mix and match any flavours</li>
           <li>✓ Individual cups or large trays</li>
           <li>✓ Delivery and setup at your venue</li>
@@ -110,16 +110,16 @@ export default function EventsPage() {
             <input id="location" name="location" required maxLength={200} className="input" placeholder="Venue or area" />
           </div>
           <div className="sm:col-span-2 rounded-2xl bg-cream p-4">
-            <p className="text-sm font-semibold text-cocoa">Estimated price</p>
+            <p className="text-sm font-semibold text-rose">Estimated price</p>
             {estimate > 0 ? (
-              <p className="mt-1 text-2xl font-bold text-cocoa">
+              <p className="mt-1 text-2xl font-bold text-rose">
                 {formatEGP(estimate)}{" "}
-                <span className="text-sm font-normal text-mocha">for {guestCount} guests</span>
+                <span className="text-sm font-normal text-muted">for {guestCount} guests</span>
               </p>
             ) : (
-              <p className="mt-1 text-sm text-mocha">Enter the number of guests to see an estimate.</p>
+              <p className="mt-1 text-sm text-muted">Enter the number of guests to see an estimate.</p>
             )}
-            <p className="mt-1 text-xs text-mocha">
+            <p className="mt-1 text-xs text-muted">
               About {formatEGP(Math.round(EVENT_REFERENCE_PRICE / EVENT_REFERENCE_GUESTS))} per guest. We&apos;ll confirm
               the final price when we call you.
             </p>

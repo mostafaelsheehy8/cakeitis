@@ -12,11 +12,11 @@ export default function CheckoutPage() {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  if (!ready) return <div className="mx-auto max-w-3xl px-4 py-12 text-mocha">Loading…</div>;
+  if (!ready) return <div className="mx-auto max-w-3xl px-4 py-12 text-muted">Loading…</div>;
   if (items.length === 0)
     return (
       <div className="mx-auto max-w-3xl px-4 py-20 text-center">
-        <p className="text-mocha">Your cart is empty.</p>
+        <p className="text-muted">Your cart is empty.</p>
         <Link href="/menu" className="btn mt-6">Browse the menu</Link>
       </div>
     );
@@ -54,7 +54,7 @@ export default function CheckoutPage() {
   return (
     <div className="mx-auto grid max-w-5xl gap-10 px-4 py-12 md:grid-cols-[1fr_320px]">
       <form onSubmit={onSubmit} className="space-y-4">
-        <h1 className="font-serif text-4xl text-cocoa">Checkout</h1>
+        <h1 className="font-serif text-4xl text-rose">Checkout</h1>
         <div>
           <label className="label" htmlFor="name">Full name</label>
           <input id="name" name="name" required maxLength={80} className="input" autoComplete="name" />
@@ -75,7 +75,7 @@ export default function CheckoutPage() {
           <label className="label" htmlFor="notes">Notes (optional)</label>
           <textarea id="notes" name="notes" maxLength={500} rows={2} className="input" placeholder="Delivery time, a birthday message…" />
         </div>
-        <div className="rounded-2xl bg-cream p-4 text-sm text-cocoa">
+        <div className="rounded-2xl bg-cream p-4 text-sm text-rose">
           <strong>Payment:</strong> Cash on delivery. Online payment is coming soon.
         </div>
         {error && <p className="rounded-xl bg-red-50 p-3 text-sm text-red-800">{error}</p>}
@@ -85,11 +85,11 @@ export default function CheckoutPage() {
       </form>
 
       <aside className="h-fit rounded-3xl bg-white p-5 ring-1 ring-cream">
-        <h2 className="font-serif text-xl text-cocoa">Order summary</h2>
+        <h2 className="font-serif text-xl text-rose">Order summary</h2>
         <ul className="mt-4 space-y-2 text-sm">
           {items.map((i) => (
             <li key={i.productId + i.size} className="flex justify-between gap-2">
-              <span>{i.quantity}× {i.name} <span className="text-mocha">({i.size})</span></span>
+              <span>{i.quantity}× {i.name} <span className="text-muted">({i.size})</span></span>
               <span>{formatEGP(i.price * i.quantity)}</span>
             </li>
           ))}
