@@ -80,7 +80,12 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                     {b.email && <> · <a href={`mailto:${b.email}`} className="underline">{b.email}</a></>}
                   </p>
                   <p className="text-sm text-mocha">
-                    📍 {b.location} · 👥 {b.guests} guests{b.budget != null && <> · 💰 {formatEGP(b.budget)}</>}
+                    📍 {b.location} · 👥 {b.guests} guests
+                    {b.estimatedTotal != null ? (
+                      <> · 💰 Est. {formatEGP(b.estimatedTotal)}</>
+                    ) : (
+                      b.budget != null && <> · 💰 Budget {formatEGP(b.budget)}</>
+                    )}
                   </p>
                 </div>
                 <StatusSelect id={String(b._id)} kind="events" value={b.status} options={EVENT_STATUSES} />

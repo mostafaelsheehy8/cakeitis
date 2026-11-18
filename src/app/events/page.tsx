@@ -1,10 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { EVENT_REFERENCE_GUESTS, EVENT_REFERENCE_PRICE, estimateEventTotal, formatEGP } from "@/lib/config";
 
 export default function EventsPage() {
   const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
   const [error, setError] = useState("");
+  const [guests, setGuests] = useState("");
+  const [sentEstimate, setSentEstimate] = useState(0);
+  const guestCount = Number(guests);
+  const estimate = Number.isInteger(guestCount) && guestCount <= 5000 ? estimateEventTotal(guestCount) : 0;
   const minDate = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -20,6 +25,7 @@ export default function EventsPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Could not send the request");
+      setSentEstimate(data.estimatedTotal ?? 0);
       setState("sent");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
@@ -33,8 +39,13 @@ export default function EventsPage() {
         <p className="text-5xl">🍰</p>
         <h1 className="mt-4 font-serif text-4xl text-cocoa">Request received!</h1>
         <p className="mt-3 text-mocha">
-          Thanks for thinking of Cakeitis. We&apos;ll call you within 24 hours to talk through flavours, quantities and a quote.
+          Thanks for thinking of Cakeitis. We&apos;ll call you within 24 hours to talk through flavours and confirm the price.
         </p>
+        {sentEstimate > 0 && (
+          <p className="mt-4 inline-block rounded-full bg-cream px-4 py-2 font-semibold text-cocoa">
+            Estimated price: {formatEGP(sentEstimate)}
+          </p>
+        )}
       </div>
     );
 
@@ -82,15 +93,36 @@ export default function EventsPage() {
           </div>
           <div>
             <label className="label" htmlFor="guests">Number of guests</label>
-            <input id="guests" name="guests" type="number" required min={1} max={5000} className="input" />
+            <input
+              id="guests"
+              name="guests"
+              type="number"
+              required
+              min={1}
+              max={5000}
+              className="input"
+              value={guests}
+              onChange={(e) => setGuests(e.target.value)}
+            />
           </div>
           <div className="sm:col-span-2">
             <label className="label" htmlFor="location">Location</label>
             <input id="location" name="location" required maxLength={200} className="input" placeholder="Venue or area" />
           </div>
-          <div className="sm:col-span-2">
-            <label className="label" htmlFor="budget">Budget in EGP (optional)</label>
-            <input id="budget" name="budget" type="number" min={0} step={50} className="input" />
+          <div className="sm:col-span-2 rounded-2xl bg-cream p-4">
+            <p className="text-sm font-semibold text-cocoa">Estimated price</p>
+            {estimate > 0 ? (
+              <p className="mt-1 text-2xl font-bold text-cocoa">
+                {formatEGP(estimate)}{" "}
+                <span className="text-sm font-normal text-mocha">for {guestCount} guests</span>
+              </p>
+            ) : (
+              <p className="mt-1 text-sm text-mocha">Enter the number of guests to see an estimate.</p>
+            )}
+            <p className="mt-1 text-xs text-mocha">
+              About {formatEGP(Math.round(EVENT_REFERENCE_PRICE / EVENT_REFERENCE_GUESTS))} per guest. We&apos;ll confirm
+              the final price when we call you.
+            </p>
           </div>
           <div className="sm:col-span-2">
             <label className="label" htmlFor="notes">Notes</label>

@@ -44,6 +44,10 @@ npm run dev                  # http://localhost:3000
 
 `/admin/*` and `/api/admin/*` are protected by `src/middleware.ts` (HMAC-signed, httpOnly cookie, 12h).
 
+## Event pricing
+
+The booking form shows an estimated price from the number of guests: a flat per-guest rate based on 150 guests = 8000 EGP, rounded to the nearest 50 EGP. The server computes and stores the estimate. To change the rate, edit `EVENT_REFERENCE_GUESTS` / `EVENT_REFERENCE_PRICE` in `src/lib/config.ts`.
+
 ## Editing the menu
 
 Change the list in `scripts/seed.ts` and run `npm run seed` again. It upserts by `slug`, so existing products keep their ids.

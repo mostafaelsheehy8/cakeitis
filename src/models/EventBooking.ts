@@ -10,7 +10,8 @@ const EventBookingSchema = new Schema(
     date: { type: Date, required: true },
     location: { type: String, required: true },
     guests: { type: Number, required: true, min: 1 },
-    budget: { type: Number, min: 0 }, // EGP, optional
+    estimatedTotal: { type: Number, min: 0 }, // EGP, computed from guests on the server
+    budget: { type: Number, min: 0 }, // legacy: only on bookings made before estimates
     notes: { type: String, default: "" },
     status: { type: String, enum: EVENT_STATUSES, default: "new" },
   },
