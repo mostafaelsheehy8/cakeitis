@@ -1,8 +1,9 @@
 // Seeds the menu. Run with: npm run seed
+// Products not listed here are hidden from the menu (kept in the DB so old orders still make sense).
 import mongoose from "mongoose";
 import { Product } from "../src/models/Product";
 
-// Same prices for every flavour. Add a Medium size here once its price is decided.
+// Same prices for every product. Add a Medium size here once its price is decided.
 const SIZES = [
   { label: "Small", serves: "", price: 110 },
   { label: "Large", serves: "", price: 470 },
@@ -10,45 +11,17 @@ const SIZES = [
 
 const products = [
   {
+    name: "Signature Tiramisu",
+    slug: "signature",
+    description: "Our house tiramisu, made with the Cakeitis secret recipe.",
+    accent: "#964a51",
+    sizes: SIZES,
+  },
+  {
     name: "Classic Tiramisu",
     slug: "classic",
-    description: "Espresso-soaked ladyfingers, airy mascarpone cream and a deep cocoa dusting.",
+    description: "The Italian original: espresso-soaked ladyfingers, mascarpone cream and cocoa.",
     accent: "#6b4226",
-    sizes: SIZES,
-  },
-  {
-    name: "Lotus Biscoff",
-    slug: "lotus",
-    description: "Caramelised Lotus biscuits, Biscoff spread swirl and a crunchy crumble top.",
-    accent: "#c8894d",
-    sizes: SIZES,
-  },
-  {
-    name: "Pistachio",
-    slug: "pistachio",
-    description: "Silky pistachio cream layered with roasted pistachios and white chocolate.",
-    accent: "#8a9a5b",
-    sizes: SIZES,
-  },
-  {
-    name: "Nutella Hazelnut",
-    slug: "nutella",
-    description: "Hazelnut mascarpone, Nutella ribbons and toasted hazelnut crunch.",
-    accent: "#4a2c1d",
-    sizes: SIZES,
-  },
-  {
-    name: "Strawberry",
-    slug: "strawberry",
-    description: "A summery twist: fresh strawberries, vanilla cream and strawberry syrup.",
-    accent: "#c4536a",
-    sizes: SIZES,
-  },
-  {
-    name: "Red Velvet",
-    slug: "red-velvet",
-    description: "Red velvet sponge, cream-cheese mascarpone and white chocolate shavings.",
-    accent: "#9b2335",
     sizes: SIZES,
   },
 ];
@@ -60,7 +33,13 @@ async function main() {
   for (const [i, p] of products.entries()) {
     await Product.updateOne({ slug: p.slug }, { $set: { ...p, sortOrder: i, available: true } }, { upsert: true });
   }
-  console.log(`Seeded ${products.length} products into ${mongoose.connection.name}.`);
+  const hidden = await Product.updateMany(
+    { slug: { $nin: products.map((p) => p.slug) }, available: true },
+    { $set: { available: false } },
+  );
+  console.log(
+    `Seeded ${products.length} products into ${mongoose.connection.name}; hid ${hidden.modifiedCount} old product(s).`,
+  );
   await mongoose.disconnect();
 }
 

@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const menu = await getMenu().catch(() => []);
-  const featured = menu.slice(0, 3);
+  const featured = menu.slice(0, 4);
 
   return (
     <>
@@ -33,12 +33,12 @@ export default async function Home() {
       </section>
 
       <section className="bg-cream/60 py-16">
-        <div className="mx-auto max-w-6xl px-4">
+        <div className="mx-auto max-w-4xl px-4">
           <div className="mb-8 flex items-end justify-between">
-            <h2 className="font-serif text-3xl text-rose">Customer favourites</h2>
+            <h2 className="font-serif text-3xl text-rose">Our tiramisu</h2>
             <Link href="/menu" className="text-sm font-semibold text-blush hover:underline">Full menu →</Link>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2">
             {featured.map((p) => (
               <Link key={p.id} href="/menu" className="group rounded-3xl bg-mascarpone p-4 shadow-sm transition hover:shadow-md">
                 <TiramisuArt accent={p.accent} className="aspect-[4/3]" />
