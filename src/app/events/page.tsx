@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
+import { PageHero } from "@/components/PageHero";
 import { EVENT_REFERENCE_GUESTS, EVENT_REFERENCE_PRICE, estimateEventTotal, formatEGP } from "@/lib/config";
 
 export default function EventsPage() {
@@ -50,18 +52,22 @@ export default function EventsPage() {
     );
 
   return (
+    <>
+    <PageHero
+      eyebrow="Events & catering"
+      title="Let us bring the tiramisu."
+      text="Birthdays, engagements, weddings, office days: tell us about your event and get an estimated price right away."
+      image="/photos/banner-lid.webp"
+    />
     <div className="mx-auto grid max-w-5xl gap-10 px-4 py-12 md:grid-cols-[1fr_1.3fr]">
       <div>
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blush">Events & catering</p>
-        <h1 className="mt-2 font-serif text-4xl text-rose">Let us bring the tiramisu.</h1>
-        <p className="mt-4 text-muted">
-          Birthdays, engagements, weddings, office days: tell us about your event and we&apos;ll put together a dessert
-          table that fits your guests and budget.
-        </p>
-        <ul className="mt-6 space-y-2 text-sm text-muted">
-          <li>✓ Mix and match any flavours</li>
-          <li>✓ Individual cups or large trays</li>
-          <li>✓ Delivery and setup at your venue</li>
+        <div className="relative hidden aspect-square overflow-hidden rounded-[2rem] shadow-lg ring-1 ring-cream md:block">
+          <Image src="/products/signature-2.webp" alt="Cakeitis tiramisu, sealed and ready" fill sizes="(min-width: 768px) 380px, 90vw" className="object-cover" />
+        </div>
+        <ul className="space-y-2 text-sm text-muted md:mt-6">
+          <li>✓ Signature and Classic, mix and match</li>
+          <li>✓ Small or large, for any number of guests</li>
+          <li>✓ Delivered to your venue, sealed and fresh</li>
         </ul>
       </div>
 
@@ -135,5 +141,6 @@ export default function EventsPage() {
         </button>
       </form>
     </div>
+    </>
   );
 }
