@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { TiramisuArt } from "@/components/TiramisuArt";
+import { ProductImage } from "@/components/ProductImage";
 import { getMenu } from "@/lib/products";
 import { formatEGP } from "@/lib/config";
 
@@ -41,7 +41,7 @@ export default async function Home() {
           <div className="grid gap-6 sm:grid-cols-2">
             {featured.map((p) => (
               <Link key={p.id} href="/menu" className="group rounded-3xl bg-mascarpone p-4 shadow-sm transition hover:shadow-md">
-                <TiramisuArt accent={p.accent} className="aspect-[4/3]" />
+                <ProductImage images={p.images} accent={p.accent} alt={p.name} />
                 <h3 className="mt-4 font-serif text-xl text-rose group-hover:text-blush">{p.name}</h3>
                 <p className="text-sm text-muted">From {formatEGP(Math.min(...p.sizes.map((s) => s.price)))}</p>
               </Link>

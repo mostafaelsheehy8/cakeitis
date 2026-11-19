@@ -15,6 +15,7 @@ const ProductSchema = new Schema(
     slug: { type: String, required: true, unique: true },
     description: { type: String, default: "" },
     accent: { type: String, default: "#c8894d" }, // placeholder art colour
+    images: { type: [String], default: [] }, // paths under /public, first one is the main photo
     sizes: { type: [SizeSchema], validate: (v: unknown[]) => v.length > 0 },
     available: { type: Boolean, default: true },
     sortOrder: { type: Number, default: 0 },

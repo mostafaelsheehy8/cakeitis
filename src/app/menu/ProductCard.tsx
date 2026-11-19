@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useCart } from "@/components/CartProvider";
-import { TiramisuArt } from "@/components/TiramisuArt";
+import { ProductImage } from "@/components/ProductImage";
 import { formatEGP } from "@/lib/config";
 import type { MenuProduct } from "@/lib/products";
 
@@ -14,7 +14,7 @@ export function ProductCard({ product }: { product: MenuProduct }) {
   const size = product.sizes[sizeIdx];
 
   function onAdd() {
-    add({ productId: product.id, name: product.name, size: size.label, price: size.price, quantity: qty, accent: product.accent });
+    add({ productId: product.id, name: product.name, size: size.label, price: size.price, quantity: qty, accent: product.accent, image: product.images[0] });
     setAdded(true);
     setQty(1);
     setTimeout(() => setAdded(false), 1500);
@@ -22,7 +22,7 @@ export function ProductCard({ product }: { product: MenuProduct }) {
 
   return (
     <div className="flex flex-col rounded-3xl bg-white p-4 shadow-sm ring-1 ring-cream">
-      <TiramisuArt accent={product.accent} className="aspect-[4/3]" />
+      <ProductImage images={product.images} accent={product.accent} alt={product.name} showThumbs />
       <h2 className="mt-4 font-serif text-2xl text-rose">{product.name}</h2>
       <p className="mt-1 flex-1 text-sm text-muted">{product.description}</p>
 

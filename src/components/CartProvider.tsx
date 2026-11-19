@@ -9,6 +9,7 @@ export type CartItem = {
   price: number; // display only; the server recomputes prices
   quantity: number;
   accent?: string;
+  image?: string;
 };
 
 type CartCtx = {

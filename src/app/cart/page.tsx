@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCart } from "@/components/CartProvider";
-import { TiramisuArt } from "@/components/TiramisuArt";
+import { ProductImage } from "@/components/ProductImage";
 import { DELIVERY_FEE, formatEGP } from "@/lib/config";
 
 export default function CartPage() {
@@ -25,7 +25,7 @@ export default function CartPage() {
       <ul className="mt-8 divide-y divide-cream rounded-3xl bg-white ring-1 ring-cream">
         {items.map((i) => (
           <li key={i.productId + i.size} className="flex items-center gap-4 p-4">
-            <TiramisuArt accent={i.accent} className="h-16 w-20 shrink-0" />
+            <ProductImage images={i.image ? [i.image] : []} accent={i.accent} alt={i.name} className="w-16 shrink-0" />
             <div className="flex-1">
               <p className="font-semibold text-rose">{i.name}</p>
               <p className="text-sm text-muted">{i.size} · {formatEGP(i.price)}</p>
