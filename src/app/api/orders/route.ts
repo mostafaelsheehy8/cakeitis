@@ -1,6 +1,8 @@
 import { randomBytes } from "crypto";
 import { isValidObjectId } from "mongoose";
+import { after } from "next/server";
 import { connectDB } from "@/lib/db";
+import { notifyOwner, orderMessage } from "@/lib/notify";
 import { DELIVERY_FEE, EG_PHONE } from "@/lib/config";
 import { bad, str } from "@/lib/validate";
 import { Product } from "@/models/Product";
@@ -59,5 +61,6 @@ export async function POST(req: Request) {
     paymentMethod: "cod",
   });
 
+  after(() => notifyOwner(orderMessage(order)));
   return Response.json({ id: String(order._id), code: order.code }, { status: 201 });
 }

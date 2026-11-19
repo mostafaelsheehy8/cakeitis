@@ -1,4 +1,6 @@
+import { after } from "next/server";
 import { connectDB } from "@/lib/db";
+import { bookingMessage, notifyOwner } from "@/lib/notify";
 import { EG_PHONE, estimateEventTotal } from "@/lib/config";
 import { bad, str } from "@/lib/validate";
 import { EventBooking } from "@/models/EventBooking";
@@ -42,5 +44,6 @@ export async function POST(req: Request) {
     estimatedTotal: estimateEventTotal(guests),
     notes: str(b.notes, 1000),
   });
+  after(() => notifyOwner(bookingMessage(booking)));
   return Response.json({ id: String(booking._id), estimatedTotal: booking.estimatedTotal }, { status: 201 });
 }
