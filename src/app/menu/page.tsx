@@ -15,7 +15,7 @@ export default async function MenuPage() {
         text="Pick your tiramisu and a size. Every order is made fresh and paid cash on delivery."
         image="/photos/spatula-slice.webp"
         imageAlt="A slice of tiramisu lifted from the dish, showing the ladyfinger layers"
-        position="object-[center_55%]"
+        position="object-[center_28%]"
       />
       <div className="mx-auto max-w-4xl px-4 py-12">
         {menu.length === 0 ? (

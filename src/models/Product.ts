@@ -5,6 +5,7 @@ const SizeSchema = new Schema(
     label: { type: String, required: true }, // e.g. "Cup", "Small tray"
     serves: { type: String, default: "" }, // e.g. "1 person"
     price: { type: Number, required: true, min: 0 }, // EGP
+    image: { type: String, default: "" }, // optional photo shown when this size is picked
   },
   { _id: false },
 );

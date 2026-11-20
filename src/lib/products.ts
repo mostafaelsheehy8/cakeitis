@@ -8,7 +8,7 @@ export type MenuProduct = {
   description: string;
   accent: string;
   images: string[];
-  sizes: { label: string; serves: string; price: number }[];
+  sizes: { label: string; serves: string; price: number; image: string }[];
 };
 
 export async function getMenu(): Promise<MenuProduct[]> {
@@ -21,6 +21,6 @@ export async function getMenu(): Promise<MenuProduct[]> {
     description: d.description ?? "",
     accent: d.accent ?? "#6b4226",
     images: d.images ?? [],
-    sizes: d.sizes.map((s) => ({ label: s.label, serves: s.serves ?? "", price: s.price })),
+    sizes: d.sizes.map((s) => ({ label: s.label, serves: s.serves ?? "", price: s.price, image: s.image ?? "" })),
   }));
 }

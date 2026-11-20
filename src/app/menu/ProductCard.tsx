@@ -12,9 +12,11 @@ export function ProductCard({ product }: { product: MenuProduct }) {
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const size = product.sizes[sizeIdx];
+  // A size can have its own photo (e.g. the large tray); otherwise show the product photos.
+  const photos = size.image ? [size.image] : product.images;
 
   function onAdd() {
-    add({ productId: product.id, name: product.name, size: size.label, price: size.price, quantity: qty, accent: product.accent, image: product.images[0] });
+    add({ productId: product.id, name: product.name, size: size.label, price: size.price, quantity: qty, accent: product.accent, image: photos[0] });
     setAdded(true);
     setQty(1);
     setTimeout(() => setAdded(false), 1500);
@@ -22,7 +24,13 @@ export function ProductCard({ product }: { product: MenuProduct }) {
 
   return (
     <div className="flex flex-col rounded-3xl bg-white p-4 shadow-sm ring-1 ring-cream">
-      <ProductImage images={product.images} accent={product.accent} alt={product.name} showThumbs />
+      <ProductImage
+        key={size.label}
+        images={photos}
+        accent={product.accent}
+        alt={`${product.name}, ${size.label}`}
+        showThumbs
+      />
       <h2 className="mt-4 font-serif text-2xl text-rose">{product.name}</h2>
       <p className="mt-1 flex-1 text-sm text-muted">{product.description}</p>
 
