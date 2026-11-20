@@ -51,7 +51,7 @@ export default async function Home() {
             <div className="absolute -inset-6 -z-0 rotate-6 rounded-[3rem] bg-blush/25" aria-hidden />
             <div className="relative overflow-hidden rounded-[2.5rem] shadow-[0_30px_80px_-30px_rgb(111_51_58_/_0.55)] ring-1 ring-white">
               <Image
-                src="/products/signature-1.webp"
+                src="/products/signature-slice.webp"
                 alt="Cakeitis Signature Tiramisu"
                 width={1080}
                 height={1080}
