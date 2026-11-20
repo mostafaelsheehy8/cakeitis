@@ -57,20 +57,22 @@ export default function EventsPage() {
       eyebrow="Events & catering"
       title="Let us bring the tiramisu."
       text="Birthdays, engagements, weddings, office days: tell us about your event and get an estimated price right away."
-      image="/photos/banner-lid.webp"
+      image="/photos/event-serving.webp"
+      imageAlt="Cakeitis team serving tiramisu from the cart at a wedding"
+      position="object-[55%_35%]"
     />
     <div className="mx-auto grid max-w-5xl gap-10 px-4 py-12 md:grid-cols-[1fr_1.3fr]">
       <div>
-        <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] shadow-lg ring-1 ring-cream md:aspect-[4/5]">
+        <div className="relative hidden aspect-square overflow-hidden rounded-[2rem] shadow-lg ring-1 ring-cream md:block">
           <Image
-            src="/photos/event-serving.webp"
-            alt="Cakeitis team serving tiramisu from the cart at a wedding"
+            src="/products/signature-2.webp"
+            alt="A sealed Cakeitis tiramisu box with the logo on the lid"
             fill
             sizes="(min-width: 768px) 380px, 90vw"
-            className="object-cover object-[55%_center]"
+            className="object-cover"
           />
         </div>
-        <ul className="mt-6 space-y-2 text-sm text-muted">
+        <ul className="space-y-2 text-sm text-muted md:mt-6">
           <li>✓ Our team serves your guests fresh from the Cakeitis cart</li>
           <li>✓ Signature and Classic, mix and match</li>
           <li>✓ Weddings, engagements, birthdays and office days</li>
