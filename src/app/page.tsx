@@ -125,24 +125,31 @@ export default async function Home() {
 
       {/* Events banner */}
       <section className="px-4 pb-20">
-        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2.5rem]">
-          <Image src="/photos/banner-lid.webp" alt="" fill sizes="100vw" className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-rose-dark/95 via-rose-dark/80 to-rose/40" aria-hidden />
-          <div className="relative grid gap-8 px-8 py-14 md:grid-cols-[1.4fr_1fr] md:items-center md:px-14 md:py-20">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">Events & catering</p>
-              <h2 className="mt-3 font-serif text-4xl leading-tight text-white md:text-5xl">
-                Having a party? Let the tiramisu come to you.
-              </h2>
-              <p className="mt-4 max-w-lg text-white/85">
-                Birthdays, engagements, office days. Tell us the date and how many guests, and see an estimated price
-                right away.
-              </p>
-            </div>
-            <div className="flex md:justify-end">
+        <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[2.5rem] bg-rose-dark md:grid-cols-[1fr_1.1fr]">
+          <div className="flex flex-col justify-center px-8 py-12 md:px-14 md:py-16">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">Events & catering</p>
+            <h2 className="mt-3 font-serif text-4xl leading-tight text-white md:text-5xl">
+              Having a party? Let the tiramisu come to you.
+            </h2>
+            <p className="mt-4 max-w-lg text-white/85">
+              Our team brings the Cakeitis tiramisu cart to your wedding, engagement or office day and serves your
+              guests fresh, cup by cup. Tell us the date and how many guests, and see an estimated price right away.
+            </p>
+            <div className="mt-8">
               <Link href="/events" className="btn bg-white px-8 py-4 text-base text-rose-dark hover:bg-cream">
                 Book your event →
               </Link>
+            </div>
+          </div>
+          <div className="p-2 md:p-3">
+            <div className="relative min-h-96 overflow-hidden rounded-[2rem] md:h-full md:min-h-[32rem]">
+              <Image
+                src="/photos/event-serving.webp"
+                alt="Cakeitis team serving tiramisu from the cart at a wedding"
+                fill
+                sizes="(min-width: 768px) 600px, 100vw"
+                className="object-cover object-[55%_40%]"
+              />
             </div>
           </div>
         </div>

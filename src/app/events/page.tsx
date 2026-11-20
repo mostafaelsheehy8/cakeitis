@@ -61,13 +61,19 @@ export default function EventsPage() {
     />
     <div className="mx-auto grid max-w-5xl gap-10 px-4 py-12 md:grid-cols-[1fr_1.3fr]">
       <div>
-        <div className="relative hidden aspect-square overflow-hidden rounded-[2rem] shadow-lg ring-1 ring-cream md:block">
-          <Image src="/products/signature-2.webp" alt="Cakeitis tiramisu, sealed and ready" fill sizes="(min-width: 768px) 380px, 90vw" className="object-cover" />
+        <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] shadow-lg ring-1 ring-cream md:aspect-[4/5]">
+          <Image
+            src="/photos/event-serving.webp"
+            alt="Cakeitis team serving tiramisu from the cart at a wedding"
+            fill
+            sizes="(min-width: 768px) 380px, 90vw"
+            className="object-cover object-[55%_center]"
+          />
         </div>
-        <ul className="space-y-2 text-sm text-muted md:mt-6">
+        <ul className="mt-6 space-y-2 text-sm text-muted">
+          <li>✓ Our team serves your guests fresh from the Cakeitis cart</li>
           <li>✓ Signature and Classic, mix and match</li>
-          <li>✓ Small or large, for any number of guests</li>
-          <li>✓ Delivered to your venue, sealed and fresh</li>
+          <li>✓ Weddings, engagements, birthdays and office days</li>
         </ul>
       </div>
 

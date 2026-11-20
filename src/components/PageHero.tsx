@@ -6,15 +6,17 @@ export function PageHero({
   title,
   text,
   image = "/photos/banner-open.webp",
+  position = "object-center",
 }: {
   eyebrow: string;
   title: string;
   text?: string;
   image?: string;
+  position?: string;
 }) {
   return (
     <section className="relative overflow-hidden">
-      <Image src={image} alt="" fill priority sizes="100vw" className="object-cover" />
+      <Image src={image} alt="" fill priority sizes="100vw" className={`object-cover ${position}`} />
       <div className="absolute inset-0 bg-gradient-to-r from-rose-dark/90 via-rose-dark/75 to-rose/45" aria-hidden />
       <div className="relative mx-auto max-w-5xl px-4 py-16 md:py-20">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/75">{eyebrow}</p>
