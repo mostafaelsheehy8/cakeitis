@@ -23,6 +23,7 @@ const products = [
     slug: "classic",
     description: "The Italian original: espresso-soaked ladyfingers, mascarpone cream and cocoa.",
     accent: "#6b4226",
+    images: ["/products/classic-slice.webp"],
     sizes: SIZES,
   },
 ];
