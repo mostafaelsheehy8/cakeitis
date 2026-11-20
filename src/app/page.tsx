@@ -51,8 +51,8 @@ export default async function Home() {
             <div className="absolute -inset-6 -z-0 rotate-6 rounded-[3rem] bg-blush/25" aria-hidden />
             <div className="relative overflow-hidden rounded-[2.5rem] shadow-[0_30px_80px_-30px_rgb(111_51_58_/_0.55)] ring-1 ring-white">
               <Image
-                src="/products/signature-slice.webp"
-                alt="Cakeitis Signature Tiramisu"
+                src="/photos/spatula-slice.webp"
+                alt="A slice of tiramisu lifted from the dish, showing the ladyfinger layers"
                 width={1080}
                 height={1080}
                 priority
@@ -61,7 +61,7 @@ export default async function Home() {
               />
             </div>
             <div className="absolute -left-2 bottom-8 rounded-2xl bg-white/95 px-5 py-3 shadow-lg ring-1 ring-cream backdrop-blur lg:-left-10">
-              <p className="font-serif text-lg text-rose-dark">Signature Tiramisu</p>
+              <p className="font-serif text-lg text-rose-dark">Handmade tiramisu</p>
               {minPrice != null && <p className="text-sm text-muted">from {formatEGP(minPrice)}</p>}
             </div>
             <div className="absolute -right-2 -top-5 flex h-24 w-24 items-center justify-center rounded-full bg-white shadow-lg ring-1 ring-cream lg:-right-8">

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { PageHero } from "@/components/PageHero";
 import { EVENT_REFERENCE_GUESTS, EVENT_REFERENCE_PRICE, estimateEventTotal, formatEGP } from "@/lib/config";
@@ -62,21 +61,25 @@ export default function EventsPage() {
       position="object-[55%_35%]"
     />
     <div className="mx-auto grid max-w-5xl gap-10 px-4 py-12 md:grid-cols-[1fr_1.3fr]">
-      <div>
-        <div className="relative hidden aspect-square overflow-hidden rounded-[2rem] shadow-lg ring-1 ring-cream md:block">
-          <Image
-            src="/products/signature-2.webp"
-            alt="A sealed Cakeitis tiramisu box with the logo on the lid"
-            fill
-            sizes="(min-width: 768px) 380px, 90vw"
-            className="object-cover"
-          />
-        </div>
-        <ul className="space-y-2 text-sm text-muted md:mt-6">
-          <li>✓ Our team serves your guests fresh from the Cakeitis cart</li>
-          <li>✓ Signature and Classic, mix and match</li>
-          <li>✓ Weddings, engagements, birthdays and office days</li>
+      <div className="h-fit rounded-[2rem] bg-cream/70 p-7 ring-1 ring-cream">
+        <h2 className="font-serif text-2xl text-rose-dark">What you get</h2>
+        <ul className="mt-5 space-y-4 text-muted">
+          <li className="flex gap-3">
+            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose text-xs text-white">1</span>
+            Our team serves your guests fresh from the Cakeitis cart
+          </li>
+          <li className="flex gap-3">
+            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose text-xs text-white">2</span>
+            Signature and Classic, mix and match
+          </li>
+          <li className="flex gap-3">
+            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose text-xs text-white">3</span>
+            Weddings, engagements, birthdays and office days
+          </li>
         </ul>
+        <p className="mt-6 border-t border-cream pt-5 text-sm text-muted">
+          Send the form and we&apos;ll call you within 24 hours to confirm the details and the final price.
+        </p>
       </div>
 
       <form onSubmit={onSubmit} className="space-y-4 rounded-3xl bg-white p-6 ring-1 ring-cream">

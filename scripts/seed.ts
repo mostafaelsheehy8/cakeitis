@@ -15,7 +15,7 @@ const products = [
     slug: "signature",
     description: "Our house tiramisu, made with the Cakeitis secret recipe.",
     accent: "#964a51",
-    images: ["/products/signature-slice.webp", "/products/signature-2.webp"],
+    images: ["/products/signature-slice.webp"],
     sizes: SIZES,
   },
   {
