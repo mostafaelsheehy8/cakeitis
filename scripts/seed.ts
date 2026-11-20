@@ -6,7 +6,7 @@ import { Product } from "../src/models/Product";
 // Same prices for every product. Add a Medium size here once its price is decided.
 const SIZES = [
   { label: "Small", serves: "", price: 110 },
-  { label: "Large", serves: "", price: 470 },
+  { label: "Large", serves: "", price: 470, image: "/products/large-tray.webp" },
 ];
 
 const products = [
