@@ -8,6 +8,7 @@ export function PageHero({
   image,
   imageAlt = "",
   position = "object-center",
+  tall = false,
 }: {
   eyebrow: string;
   title: string;
@@ -15,6 +16,7 @@ export function PageHero({
   image: string;
   imageAlt?: string;
   position?: string;
+  tall?: boolean;
 }) {
   return (
     <section className="px-4 pt-6">
@@ -25,7 +27,7 @@ export function PageHero({
           {text && <p className="mt-4 max-w-xl text-white/85">{text}</p>}
         </div>
         <div className="p-2 md:p-3">
-          <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] md:aspect-auto md:h-full md:min-h-80">
+          <div className={`relative overflow-hidden rounded-[2rem] md:aspect-auto md:h-full ${tall ? "aspect-square md:min-h-[28rem]" : "aspect-[16/10] md:min-h-80"}`}>
             <Image src={image} alt={imageAlt} fill priority sizes="(min-width: 768px) 540px, 100vw" className={`object-cover ${position}`} />
           </div>
         </div>

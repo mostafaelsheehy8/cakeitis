@@ -58,7 +58,8 @@ export default function EventsPage() {
       text="Birthdays, engagements, weddings, office days: tell us about your event and get an estimated price right away."
       image="/photos/event-serving.webp"
       imageAlt="Cakeitis team serving tiramisu from the cart at a wedding"
-      position="object-[55%_35%]"
+      position="object-[50%_60%]"
+      tall
     />
     <div className="mx-auto grid max-w-5xl gap-10 px-4 py-12 md:grid-cols-[1fr_1.3fr]">
       <div className="h-fit rounded-[2rem] bg-cream/70 p-7 ring-1 ring-cream">
