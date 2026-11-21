@@ -3,9 +3,10 @@
 import mongoose from "mongoose";
 import { Product } from "../src/models/Product";
 
-// Same prices for every product. Add a Medium size here once its price is decided.
+// Same prices and photos for every product. Add a Medium size here once its price is decided.
+// Real Cakeitis photos on the same backdrop, so Small and Large look like a set.
 const SIZES = [
-  { label: "Small", serves: "", price: 110 },
+  { label: "Small", serves: "", price: 110, image: "/products/small-box.webp" },
   { label: "Large", serves: "", price: 470, image: "/products/large-tray.webp" },
 ];
 
@@ -15,16 +16,15 @@ const products = [
     slug: "signature",
     description: "Our house tiramisu, made with the Cakeitis secret recipe.",
     accent: "#964a51",
-    // Real Cakeitis photos on the same backdrop, so Small and Large look like a set
     images: ["/products/small-box.webp"],
-    sizes: [{ ...SIZES[0], image: "/products/small-box.webp" }, SIZES[1]],
+    sizes: SIZES,
   },
   {
     name: "Classic Tiramisu",
     slug: "classic",
     description: "The Italian original: espresso-soaked ladyfingers, mascarpone cream and cocoa.",
     accent: "#6b4226",
-    images: ["/products/classic-slice.webp"],
+    images: ["/products/small-box.webp"],
     sizes: SIZES,
   },
 ];
