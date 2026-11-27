@@ -13,10 +13,10 @@ export type OrderStatus = (typeof ORDER_STATUSES)[number];
 export const EVENT_STATUSES = ["new", "contacted", "confirmed", "declined"] as const;
 export type EventStatus = (typeof EVENT_STATUSES)[number];
 
-// Event pricing: a flat rate per guest based on a reference price (150 guests = 7800 EGP).
+// Event pricing: a flat rate per guest based on a reference price (150 guests = 8000 EGP).
 // Change these two numbers to update event pricing everywhere.
 export const EVENT_REFERENCE_GUESTS = 150;
-export const EVENT_REFERENCE_PRICE = 7800; // EGP
+export const EVENT_REFERENCE_PRICE = 8000; // EGP
 
 export function estimateEventTotal(guests: number) {
   if (!Number.isFinite(guests) || guests < 1) return 0;
