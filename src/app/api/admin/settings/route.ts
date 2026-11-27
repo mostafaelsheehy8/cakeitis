@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { connectDB } from "@/lib/db";
 import { bad, str } from "@/lib/validate";
 import { Settings } from "@/models/Settings";
@@ -26,5 +27,7 @@ export async function PUT(req: Request) {
     { deliveryAreas, hours: str(b.hours, 200) },
     { upsert: true, new: true, runValidators: true },
   );
+  // Static pages (cart, events, privacy) show the hours in the footer: rebuild them with the new value.
+  revalidatePath("/", "layout");
   return Response.json({ ok: true });
 }
