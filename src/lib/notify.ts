@@ -18,9 +18,22 @@ export async function notifyOwner(html: string) {
   }
 }
 
+// First valid one of SITE_URL, Netlify's own URL, then localhost. Tolerates a missing "https://", quotes or spaces.
+function baseUrl() {
+  for (const raw of [process.env.SITE_URL, process.env.URL, process.env.DEPLOY_PRIME_URL]) {
+    const v = (raw || "").trim().replace(/^["']|["']$/g, "");
+    if (!v) continue;
+    try {
+      return new URL(/^https?:\/\//i.test(v) ? v : `https://${v}`).origin;
+    } catch {
+      // try the next one
+    }
+  }
+  return "http://localhost:3000";
+}
+
 export function siteUrl(path = "") {
-  const base = process.env.SITE_URL || process.env.URL || "http://localhost:3000";
-  return base.replace(/\/$/, "") + path;
+  return baseUrl() + path;
 }
 
 type OrderMsg = {
