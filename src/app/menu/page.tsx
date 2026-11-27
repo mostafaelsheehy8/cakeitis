@@ -12,7 +12,7 @@ export default async function MenuPage() {
       <PageHero
         eyebrow="The menu"
         title="Our tiramisu"
-        text="Pick your tiramisu and a size. Every order is made fresh and paid cash on delivery."
+        points={["Each order is freshly prepared with care", "Pick your size", "Cash on delivery"]}
         image="/photos/spatula-slice.webp"
         imageAlt="A slice of tiramisu lifted from the dish, showing the ladyfinger layers"
         position="object-[center_28%]"

@@ -5,6 +5,7 @@ export function PageHero({
   eyebrow,
   title,
   text,
+  points,
   image,
   imageAlt = "",
   position = "object-center",
@@ -13,6 +14,7 @@ export function PageHero({
   eyebrow: string;
   title: string;
   text?: string;
+  points?: string[];
   image: string;
   imageAlt?: string;
   position?: string;
@@ -25,6 +27,16 @@ export function PageHero({
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/75">{eyebrow}</p>
           <h1 className="mt-3 font-serif text-4xl leading-tight text-white md:text-5xl">{title}</h1>
           {text && <p className="mt-4 max-w-xl text-white/85">{text}</p>}
+          {points && points.length > 0 && (
+            <ul className="mt-5 space-y-2 text-white/90">
+              {points.map((pt) => (
+                <li key={pt} className="flex items-center gap-3">
+                  <span aria-hidden className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white/15 text-xs">✓</span>
+                  {pt}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <div className="p-2 md:p-3">
           <div className={`relative overflow-hidden rounded-[2rem] md:aspect-auto md:h-full ${tall ? "aspect-square md:min-h-[28rem]" : "aspect-[16/10] md:min-h-80"}`}>
