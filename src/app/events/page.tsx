@@ -147,6 +147,11 @@ export default function EventsPage() {
             <textarea id="notes" name="notes" rows={3} maxLength={1000} className="input" placeholder="Flavours you like, allergies, theme…" />
           </div>
         </div>
+        {/* Honeypot for spam bots: hidden from people and screen readers */}
+        <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+          <label htmlFor="website">Website</label>
+          <input id="website" name="website" tabIndex={-1} autoComplete="off" />
+        </div>
         {error && <p className="rounded-xl bg-red-50 p-3 text-sm text-red-800">{error}</p>}
         <button type="submit" disabled={state === "sending"} className="btn w-full">
           {state === "sending" ? "Sending…" : "Send booking request"}

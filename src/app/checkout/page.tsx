@@ -38,6 +38,7 @@ export default function CheckoutPage() {
             address: f.get("address"),
           },
           notes: f.get("notes"),
+          website: f.get("website"),
           items: items.map((i) => ({ productId: i.productId, size: i.size, quantity: i.quantity })),
         }),
       });
@@ -77,6 +78,11 @@ export default function CheckoutPage() {
         </div>
         <div className="rounded-2xl bg-cream p-4 text-sm text-rose">
           <strong>Payment:</strong> Cash on delivery. Online payment is coming soon.
+        </div>
+        {/* Honeypot for spam bots: hidden from people and screen readers */}
+        <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+          <label htmlFor="website">Website</label>
+          <input id="website" name="website" tabIndex={-1} autoComplete="off" />
         </div>
         {error && <p className="rounded-xl bg-red-50 p-3 text-sm text-red-800">{error}</p>}
         <button type="submit" disabled={submitting} className="btn w-full">

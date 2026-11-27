@@ -6,6 +6,7 @@ const playfair = Playfair_Display({ subsets: ["latin"], style: ["normal", "itali
 import "./globals.css";
 import { CartProvider } from "@/components/CartProvider";
 import { Header } from "@/components/Header";
+import { ContactLinks, WhatsAppButton } from "@/components/Contact";
 
 export const metadata: Metadata = {
   title: "Cakeitis — Tiramisu Cloud Kitchen",
@@ -22,7 +23,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <footer className="border-t border-cream bg-cream/60 py-8 text-center text-sm text-muted">
             <Image src="/logo.png" alt="Cakeitis" width={517} height={341} className="mx-auto mb-2 h-14 w-auto" />
             <p>Handmade tiramisu · Cloud kitchen · Cash on delivery</p>
+            <ContactLinks />
           </footer>
+          <WhatsAppButton />
         </CartProvider>
       </body>
     </html>

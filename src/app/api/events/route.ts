@@ -3,6 +3,7 @@ import { connectDB } from "@/lib/db";
 import { bookingMessage, notifyOwner } from "@/lib/notify";
 import { EG_PHONE, estimateEventTotal } from "@/lib/config";
 import { bad, str } from "@/lib/validate";
+import { rateLimit, tooMany } from "@/lib/rateLimit";
 import { EventBooking } from "@/models/EventBooking";
 
 export async function POST(req: Request) {
@@ -12,6 +13,10 @@ export async function POST(req: Request) {
   } catch {
     return bad("Invalid JSON");
   }
+
+  // Honeypot: real visitors never see or fill the "website" field.
+  if (str(b.website, 200)) return Response.json({ id: "ok", estimatedTotal: 0 }, { status: 201 });
+  if (!(await rateLimit(req, "event", 3, 60 * 60))) return tooMany();
 
   const name = str(b.name, 80);
   const phone = str(b.phone, 20).replace(/\s|-/g, "");

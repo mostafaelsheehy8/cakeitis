@@ -5,6 +5,7 @@ import { connectDB } from "@/lib/db";
 import { notifyOwner, orderMessage } from "@/lib/notify";
 import { DELIVERY_FEE, EG_PHONE } from "@/lib/config";
 import { bad, str } from "@/lib/validate";
+import { rateLimit, tooMany } from "@/lib/rateLimit";
 import { Product } from "@/models/Product";
 import { Order } from "@/models/Order";
 
@@ -17,6 +18,10 @@ export async function POST(req: Request) {
   } catch {
     return bad("Invalid JSON");
   }
+
+  // Honeypot: real visitors never see or fill the "website" field.
+  if (str(body.website, 200)) return Response.json({ id: "ok", code: "CK-OK" }, { status: 201 });
+  if (!(await rateLimit(req, "order", 5, 60 * 60))) return tooMany();
 
   const c = (body.customer ?? {}) as Record<string, unknown>;
   const customer = {
