@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCart } from "@/components/CartProvider";
 import { ProductImage } from "@/components/ProductImage";
-import { DELIVERY_FEE, formatEGP } from "@/lib/config";
+import { formatEGP } from "@/lib/config";
 
 export default function CartPage() {
   const { items, ready, subtotal, setQuantity, remove } = useCart();
@@ -41,9 +41,8 @@ export default function CartPage() {
         ))}
       </ul>
       <div className="mt-6 ml-auto max-w-xs space-y-1 text-right">
-        <p className="text-muted">Subtotal: {formatEGP(subtotal)}</p>
-        <p className="text-muted">Delivery: {formatEGP(DELIVERY_FEE)}</p>
-        <p className="text-xl font-bold text-rose">Total: {formatEGP(subtotal + DELIVERY_FEE)}</p>
+        <p className="text-xl font-bold text-rose">Subtotal: {formatEGP(subtotal)}</p>
+        <p className="text-sm text-muted">Delivery fee is added at checkout, based on your area.</p>
         <Link href="/checkout" className="btn mt-4 w-full">Checkout</Link>
       </div>
     </div>

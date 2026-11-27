@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { connectDB } from "@/lib/db";
-import { EVENT_STATUSES, ORDER_STATUSES, formatEGP } from "@/lib/config";
+import { DELIVERY_FEE, EVENT_STATUSES, ORDER_STATUSES, formatEGP } from "@/lib/config";
 import { Order } from "@/models/Order";
 import { EventBooking } from "@/models/EventBooking";
 import { Product } from "@/models/Product";
 import { PRODUCT_PHOTOS } from "@/lib/productInput";
 import { LogoutButton, StatusSelect } from "./AdminControls";
 import { ProductsManager, type AdminProduct } from "./ProductsManager";
+import { DeliverySettings } from "./DeliverySettings";
+import { getSettings } from "@/lib/settings";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Admin — Cakeitis" };
@@ -18,12 +20,13 @@ const day = (d: Date) => new Date(d).toLocaleDateString("en-GB", { dateStyle: "f
 export default async function AdminPage({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
   const { tab = "orders" } = await searchParams;
   await connectDB();
-  const [orders, bookings, pendingOrders, newBookings, productDocs] = await Promise.all([
+  const [orders, bookings, pendingOrders, newBookings, productDocs, settings] = await Promise.all([
     tab === "orders" ? Order.find().sort({ createdAt: -1 }).limit(200).lean() : [],
     tab === "events" ? EventBooking.find().sort({ createdAt: -1 }).limit(200).lean() : [],
     Order.countDocuments({ status: "pending" }),
     EventBooking.countDocuments({ status: "new" }),
     tab === "products" ? Product.find().sort({ sortOrder: 1, createdAt: 1 }).lean() : [],
+    tab === "delivery" ? getSettings() : null,
   ]);
   const products: AdminProduct[] = productDocs.map((d) => ({
     id: String(d._id),
@@ -56,9 +59,12 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
           Event bookings {newBookings > 0 && <span className="ml-1 rounded-full bg-blush px-2 text-xs text-espresso">{newBookings}</span>}
         </Link>
         <Link href="/admin?tab=products" className={tabCls("products")}>Products</Link>
+        <Link href="/admin?tab=delivery" className={tabCls("delivery")}>Delivery & hours</Link>
       </div>
 
-      {tab === "products" ? (
+      {tab === "delivery" && settings ? (
+        <DeliverySettings initial={settings} defaultFee={DELIVERY_FEE} />
+      ) : tab === "products" ? (
         <ProductsManager products={products} photos={PRODUCT_PHOTOS} />
       ) : tab === "orders" ? (
         <div className="mt-6 space-y-4">
@@ -79,7 +85,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                 ))}
               </ul>
               {o.notes && <p className="mt-2 rounded-lg bg-cream/70 p-2 text-sm">📝 {o.notes}</p>}
-              <p className="mt-2 text-sm font-bold text-rose">Total: {formatEGP(o.total)} (COD)</p>
+              <p className="mt-2 text-sm font-bold text-rose">Total: {formatEGP(o.total)} (COD) <span className="font-normal text-muted">· incl. {formatEGP(o.deliveryFee)} delivery</span></p>
             </div>
           ))}
         </div>

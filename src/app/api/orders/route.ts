@@ -3,7 +3,8 @@ import { isValidObjectId } from "mongoose";
 import { after } from "next/server";
 import { connectDB } from "@/lib/db";
 import { notifyOwner, orderMessage } from "@/lib/notify";
-import { DELIVERY_FEE, EG_PHONE } from "@/lib/config";
+import { EG_PHONE } from "@/lib/config";
+import { feeForArea, getSettings } from "@/lib/settings";
 import { bad, str } from "@/lib/validate";
 import { rateLimit, tooMany } from "@/lib/rateLimit";
 import { Product } from "@/models/Product";
@@ -34,6 +35,10 @@ export async function POST(req: Request) {
   if (!EG_PHONE.test(customer.phone)) return bad("Please enter a valid Egyptian mobile number");
   if (!customer.address) return bad("Please enter a delivery address");
 
+  const settings = await getSettings();
+  const deliveryFee = feeForArea(settings, customer.area);
+  if (deliveryFee === null) return bad("Please choose your area from the list");
+
   const rawItems = Array.isArray(body.items) ? (body.items as InItem[]) : [];
   if (rawItems.length === 0 || rawItems.length > 30) return bad("Your cart is empty");
 
@@ -61,8 +66,8 @@ export async function POST(req: Request) {
     customer,
     notes: str(body.notes, 500),
     subtotal,
-    deliveryFee: DELIVERY_FEE,
-    total: subtotal + DELIVERY_FEE,
+    deliveryFee,
+    total: subtotal + deliveryFee,
     paymentMethod: "cod",
   });
 
