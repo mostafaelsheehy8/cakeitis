@@ -3,7 +3,10 @@ import { connectDB } from "@/lib/db";
 import { EVENT_STATUSES, ORDER_STATUSES, formatEGP } from "@/lib/config";
 import { Order } from "@/models/Order";
 import { EventBooking } from "@/models/EventBooking";
+import { Product } from "@/models/Product";
+import { PRODUCT_PHOTOS } from "@/lib/productInput";
 import { LogoutButton, StatusSelect } from "./AdminControls";
+import { ProductsManager, type AdminProduct } from "./ProductsManager";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Admin — Cakeitis" };
@@ -15,12 +18,22 @@ const day = (d: Date) => new Date(d).toLocaleDateString("en-GB", { dateStyle: "f
 export default async function AdminPage({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
   const { tab = "orders" } = await searchParams;
   await connectDB();
-  const [orders, bookings, pendingOrders, newBookings] = await Promise.all([
+  const [orders, bookings, pendingOrders, newBookings, productDocs] = await Promise.all([
     tab === "orders" ? Order.find().sort({ createdAt: -1 }).limit(200).lean() : [],
     tab === "events" ? EventBooking.find().sort({ createdAt: -1 }).limit(200).lean() : [],
     Order.countDocuments({ status: "pending" }),
     EventBooking.countDocuments({ status: "new" }),
+    tab === "products" ? Product.find().sort({ sortOrder: 1, createdAt: 1 }).lean() : [],
   ]);
+  const products: AdminProduct[] = productDocs.map((d) => ({
+    id: String(d._id),
+    name: d.name,
+    description: d.description ?? "",
+    image: d.images?.[0] ?? "",
+    sizes: d.sizes.map((x) => ({ label: x.label, serves: x.serves ?? "", price: x.price, image: x.image ?? "" })),
+    available: d.available ?? true,
+    sortOrder: d.sortOrder ?? 0,
+  }));
 
   const tabCls = (t: string) =>
     `rounded-full px-4 py-2 text-sm font-semibold ${tab === t ? "bg-rose text-mascarpone" : "bg-cream text-rose"}`;
@@ -35,16 +48,19 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
         </div>
       </div>
 
-      <div className="mt-6 flex gap-2">
+      <div className="mt-6 flex flex-wrap gap-2">
         <Link href="/admin?tab=orders" className={tabCls("orders")}>
           Orders {pendingOrders > 0 && <span className="ml-1 rounded-full bg-blush px-2 text-xs text-espresso">{pendingOrders}</span>}
         </Link>
         <Link href="/admin?tab=events" className={tabCls("events")}>
           Event bookings {newBookings > 0 && <span className="ml-1 rounded-full bg-blush px-2 text-xs text-espresso">{newBookings}</span>}
         </Link>
+        <Link href="/admin?tab=products" className={tabCls("products")}>Products</Link>
       </div>
 
-      {tab === "orders" ? (
+      {tab === "products" ? (
+        <ProductsManager products={products} photos={PRODUCT_PHOTOS} />
+      ) : tab === "orders" ? (
         <div className="mt-6 space-y-4">
           {orders.length === 0 && <p className="rounded-2xl bg-cream p-6 text-muted">No orders yet.</p>}
           {orders.map((o) => (

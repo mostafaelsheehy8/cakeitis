@@ -1,4 +1,5 @@
-// Seeds the menu. Run with: npm run seed
+// Seeds the menu for a fresh database. Run with: npm run seed
+// Warning: overwrites products edited in /admin -> Products. Do not run it against the live DB after that.
 // Products not listed here are hidden from the menu (kept in the DB so old orders still make sense).
 import mongoose from "mongoose";
 import { Product } from "../src/models/Product";

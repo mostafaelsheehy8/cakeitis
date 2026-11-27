@@ -32,7 +32,7 @@ npm run dev                  # http://localhost:3000
 | `/cart`, `/checkout` | Cart (saved in localStorage) and COD checkout |
 | `/order/[id]` | Order confirmation |
 | `/events` | Event booking request form |
-| `/admin` | Orders and bookings with status updates (password protected) |
+| `/admin` | Orders, bookings and products (password protected) |
 
 ## API
 
@@ -50,7 +50,11 @@ The booking form shows an estimated price from the number of guests: a flat per-
 
 ## Editing the menu
 
-Change the list in `scripts/seed.ts` and run `npm run seed` again. It upserts by `slug`, so existing products keep their ids.
+Log in to `/admin` and open the **Products** tab: add products, change names, descriptions, sizes and prices, pick a photo, hide or delete. Changes show on the menu straight away.
+
+Photos are picked from the list in `src/lib/productInput.ts` (`PRODUCT_PHOTOS`). To offer a new photo, put the file in `public/products/` and add it to that list.
+
+`npm run seed` is only for setting up a fresh database. It overwrites the seeded products and hides any product not in `scripts/seed.ts`, so don't run it against the live database once you edit products from the admin.
 
 ## Later phases
 
